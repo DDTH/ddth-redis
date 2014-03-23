@@ -33,8 +33,6 @@ Maven dependency:
 
 ## Usage ##
 
-Simple usage:
-
 ```java
 // obtain a redis client factory
 RedisClientFactory factory = RedisClientFactory.newFactory();
