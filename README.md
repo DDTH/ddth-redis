@@ -53,3 +53,8 @@ client.close(); //close and return the client to pool when done
 
 factory.destroy(); //destroy the factory when done
 ```
+
+
+## Credits ##
+
+- [Jedis](https://github.com/xetorthio/jedis) is the underlying Redis library. 
