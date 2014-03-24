@@ -37,7 +37,7 @@ public class PoolConfig {
 
     private int maxActive = DEFAULT_MAX_ACTIVE, maxIdle = DEFAULT_MAX_IDLE,
             minIdle = DEFAULT_MIN_IDLE;
-    private long maxWaitTime = DEFAULT_MAX_WAIT_TIME;
+    private long maxWaitTimeMs = DEFAULT_MAX_WAIT_TIME;
 
     public int getMaxActive() {
         return maxActive;
@@ -67,11 +67,11 @@ public class PoolConfig {
     }
 
     public long getMaxWaitTime() {
-        return maxWaitTime;
+        return maxWaitTimeMs;
     }
 
-    public PoolConfig setMaxWaitTime(long maxWaitTime) {
-        this.maxWaitTime = maxWaitTime;
+    public PoolConfig setMaxWaitTime(long maxWaitTimeMs) {
+        this.maxWaitTimeMs = maxWaitTimeMs;
         return this;
     }
 
@@ -81,7 +81,7 @@ public class PoolConfig {
     @Override
     public int hashCode() {
         HashCodeBuilder hcb = new HashCodeBuilder(19, 81);
-        hcb.append(maxActive).append(maxIdle).append(minIdle).append(maxWaitTime);
+        hcb.append(maxActive).append(maxIdle).append(minIdle).append(maxWaitTimeMs);
         return hcb.hashCode();
     }
 
