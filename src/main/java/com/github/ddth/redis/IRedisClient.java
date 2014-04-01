@@ -20,7 +20,7 @@ public interface IRedisClient {
      */
     public void close();
 
-    /* Redis API */
+    /* API: single value */
     /**
      * "Ping" the Redis server.
      * 
@@ -61,6 +61,68 @@ public interface IRedisClient {
     public byte[] getAsBinary(String key);
 
     /**
+     * Atomically sets key to value and returns the old value stored at key.
+     * 
+     * @param key
+     * @param value
+     * @return
+     * @since 0.2.0
+     */
+    public String getSet(String key, String value);
+
+    /**
+     * Atomically sets key to value and returns the old value stored at key.
+     * 
+     * @param key
+     * @param value
+     * @return
+     * @since 0.2.0
+     */
+    public String getSet(String key, byte[] value);
+
+    /**
+     * Atomically sets key to value and returns the old value stored at key.
+     * 
+     * @param key
+     * @param value
+     * @return
+     * @since 0.2.0
+     */
+    public byte[] getSetAsBinary(String key, String value);
+
+    /**
+     * Atomically sets key to value and returns the old value stored at key.
+     * 
+     * @param key
+     * @param value
+     * @return
+     * @since 0.2.0
+     */
+    public byte[] getSetAsBinary(String key, byte[] value);
+
+    /**
+     * Decrements the number stored at key by a specified value, and returns the
+     * value of key after the decrement.
+     * 
+     * @param key
+     * @param value
+     * @return the value of key after the decrement
+     * @since 0.2.0
+     */
+    public long decBy(String key, long value);
+
+    /**
+     * Increments the number stored at key by a specified value, and returns the
+     * value of key after the increment.
+     * 
+     * @param key
+     * @param value
+     * @return the value of key after the increment
+     * @since 0.2.0
+     */
+    public long incBy(String key, long value);
+
+    /**
      * Sets a value to Redis server.
      * 
      * @param key
@@ -79,6 +141,8 @@ public interface IRedisClient {
      *            time to live (a.k.a "expiry after write") in seconds
      */
     public void set(String key, byte[] value, int ttlSeconds);
+
+    /* API: hash */
 
     /**
      * Deletes values from a Redis hash.
@@ -135,6 +199,8 @@ public interface IRedisClient {
      *            time to live (a.k.a "expiry after write") in seconds
      */
     public void hashSet(String mapName, String fieldName, byte[] value, int ttlSeconds);
+
+    /* API: list */
 
     /**
      * Pushes a message to head of a list.
@@ -254,6 +320,8 @@ public interface IRedisClient {
      */
     public long listSize(String listName);
 
+    /* API: set */
+
     /**
      * Adds messages to a set.
      * 
@@ -361,6 +429,8 @@ public interface IRedisClient {
      * @return
      */
     public long setSize(String setName);
+
+    /* API: pub/sub */
 
     /**
      * Publishes a message to a topic.

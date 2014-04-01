@@ -151,6 +151,56 @@ public class JedisRedisClient implements IRedisClient {
      * {@inheritDoc}
      */
     @Override
+    public String getSet(String key, String value) {
+        return redisClient.getSet(key, value);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getSet(String key, byte[] value) {
+        return redisClient.getSet(key, SafeEncoder.encode(value));
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public byte[] getSetAsBinary(String key, String value) {
+        return redisClient.getSet(SafeEncoder.encode(key), SafeEncoder.encode(value));
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public byte[] getSetAsBinary(String key, byte[] value) {
+        return redisClient.getSet(SafeEncoder.encode(key), value);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public long decBy(String key, long value) {
+        Long result = redisClient.decrBy(key, value);
+        return result != null ? result.longValue() : 0;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public long incBy(String key, long value) {
+        Long result = redisClient.incrBy(key, value);
+        return result != null ? result.longValue() : 0;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public void set(String key, String value, int ttlSeconds) {
         if (ttlSeconds > 0) {
             redisClient.setex(key, ttlSeconds, value);
