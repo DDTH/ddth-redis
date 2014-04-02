@@ -195,6 +195,32 @@ public interface IRedisClient {
     public byte[] hashGetAsBinary(String mapName, String fieldName);
 
     /**
+     * Increments the number stored at {@code field} in the hash stored at
+     * {@code key} by a specified value, and returns the value after the
+     * increment.
+     * 
+     * @param mapName
+     * @param fieldName
+     * @param value
+     * @return the value of key after the increment
+     * @since 0.2.2
+     */
+    public long hashIncBy(String mapName, String fieldName, long value);
+
+    /**
+     * Decrements the number stored at {@code field} in the hash stored at
+     * {@code key} by a specified value, and returns the value after the
+     * decrement.
+     * 
+     * @param mapName
+     * @param fieldName
+     * @param value
+     * @return the value of key after the increment
+     * @since 0.2.2
+     */
+    public long hashDecBy(String mapName, String fieldName, long value);
+
+    /**
      * Sets a field value of a Redis hash.
      * 
      * @param mapName

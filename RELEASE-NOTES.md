@@ -1,12 +1,12 @@
 ddth-redis release notes
 ========================
 
-0.2.1 - 2014-04-02
+0.2.2 - 2014-04-02
 ------------------
 - New APIs:
-  - `incBy(String, long)`
-  - `decBy(String, long)`
+  - `incBy(String, long)` and `decBy(String, long)`
   - `getSet(...)` and `getSetAsBinary(...)`
+  - `hashIncBy(String, String, long)` and `hashDecBy(String, String, long)`
 - Key expiry enhancements.
 
 
