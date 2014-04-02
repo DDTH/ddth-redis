@@ -15,6 +15,20 @@ public interface IRedisClient {
     public final static int DEFAULT_READ_TIMEOUT_SEC = 10;
 
     /**
+     * Do not change key's TTL.
+     * 
+     * @since 0.2.1
+     */
+    public final static int TTL_NO_CHANGE = 0;
+
+    /**
+     * Remove the existing timeout on key
+     * 
+     * @since 0.2.1
+     */
+    public final static int TTL_PERSISTENT = -1;
+
+    /**
      * Closes the connection to Redis server, but do not destroy the Redis
      * client object.
      */
@@ -33,7 +47,9 @@ public interface IRedisClient {
      * 
      * @param key
      * @param ttlSeconds
-     *            time to live (a.k.a "expiry after write") in seconds
+     *            time to live (a.k.a "expired after write") in seconds. Special
+     *            values (since v0.2.1): {@link TTL_NO_CHANGE},
+     *            {@link #TTL_PERSISTENT}.
      */
     public void expire(String key, int ttlSeconds);
 
@@ -128,7 +144,7 @@ public interface IRedisClient {
      * @param key
      * @param value
      * @param ttlSeconds
-     *            time to live (a.k.a "expiry after write") in seconds
+     *            time to live (a.k.a "expired after write") in seconds
      */
     public void set(String key, String value, int ttlSeconds);
 
@@ -138,7 +154,7 @@ public interface IRedisClient {
      * @param key
      * @param value
      * @param ttlSeconds
-     *            time to live (a.k.a "expiry after write") in seconds
+     *            time to live (a.k.a "expired after write") in seconds
      */
     public void set(String key, byte[] value, int ttlSeconds);
 
@@ -185,7 +201,7 @@ public interface IRedisClient {
      * @param fieldName
      * @param value
      * @param ttlSeconds
-     *            time to live (a.k.a "expiry after write") in seconds
+     *            time to live (a.k.a "expired after write") in seconds
      */
     public void hashSet(String mapName, String fieldName, String value, int ttlSeconds);
 
@@ -196,7 +212,7 @@ public interface IRedisClient {
      * @param fieldName
      * @param value
      * @param ttlSeconds
-     *            time to live (a.k.a "expiry after write") in seconds
+     *            time to live (a.k.a "expired after write") in seconds
      */
     public void hashSet(String mapName, String fieldName, byte[] value, int ttlSeconds);
 

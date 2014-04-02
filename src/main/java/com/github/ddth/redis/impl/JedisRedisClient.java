@@ -120,6 +120,8 @@ public class JedisRedisClient implements IRedisClient {
     public void expire(String key, int ttlSeconds) {
         if (ttlSeconds > 0) {
             redisClient.expire(key, ttlSeconds);
+        } else if (ttlSeconds == TTL_PERSISTENT) {
+            redisClient.persist(key);
         }
     }
 
