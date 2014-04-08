@@ -262,6 +262,22 @@ public class JedisRedisClient implements IRedisClient {
      * {@inheritDoc}
      */
     @Override
+    public List<String> hashMGet(String mapName, String... fieldNames) {
+        return redisClient.hmget(mapName, fieldNames);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<byte[]> hashMGetAsBinary(String mapName, String... fieldNames) {
+        return redisClient.hmget(SafeEncoder.encode(mapName), SafeEncoder.encodeMany(fieldNames));
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public long hashIncBy(String mapName, String fieldName, long value) {
         Long result = redisClient.hincrBy(mapName, fieldName, value);
         return result != null ? result.longValue() : 0;

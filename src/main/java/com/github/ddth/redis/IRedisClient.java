@@ -195,6 +195,26 @@ public interface IRedisClient {
     public byte[] hashGetAsBinary(String mapName, String fieldName);
 
     /**
+     * Gets multiple field values fron a Redis hash.
+     * 
+     * @param mapName
+     * @param fieldNames
+     * @return
+     * @since 0.3.0
+     */
+    public List<String> hashMGet(String mapName, String... fieldNames);
+
+    /**
+     * Gets multiple field values from a Redis hash.
+     * 
+     * @param mapName
+     * @param fieldNames
+     * @return
+     * @since 0.3.0
+     */
+    public List<byte[]> hashMGetAsBinary(String mapName, String... fieldNames);
+
+    /**
      * Increments the number stored at {@code field} in the hash stored at
      * {@code key} by a specified value, and returns the value after the
      * increment.

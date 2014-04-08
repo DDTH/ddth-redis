@@ -39,6 +39,8 @@ public class PoolConfig {
             minIdle = DEFAULT_MIN_IDLE;
     private long maxWaitTimeMs = DEFAULT_MAX_WAIT_TIME;
 
+    private boolean testOnBorrow = false, testWhileIdle = true, testOnCreate = true;
+
     public int getMaxActive() {
         return maxActive;
     }
@@ -72,6 +74,45 @@ public class PoolConfig {
 
     public PoolConfig setMaxWaitTime(long maxWaitTimeMs) {
         this.maxWaitTimeMs = maxWaitTimeMs;
+        return this;
+    }
+
+    public boolean isTestOnBorrow() {
+        return testOnBorrow;
+    }
+
+    public boolean getTestOnBorrow() {
+        return testOnBorrow;
+    }
+
+    public PoolConfig setTestOnBorrow(boolean value) {
+        this.testOnBorrow = value;
+        return this;
+    }
+
+    public boolean isTestOnCreate() {
+        return testOnCreate;
+    }
+
+    public boolean getTestOnCreate() {
+        return testOnCreate;
+    }
+
+    public PoolConfig setTestOnCreate(boolean value) {
+        this.testOnCreate = value;
+        return this;
+    }
+
+    public boolean isTestWhileIdle() {
+        return testWhileIdle;
+    }
+
+    public boolean getTestWhileIdle() {
+        return testWhileIdle;
+    }
+
+    public PoolConfig setTestWhileIdle(boolean value) {
+        this.testWhileIdle = value;
         return this;
     }
 
