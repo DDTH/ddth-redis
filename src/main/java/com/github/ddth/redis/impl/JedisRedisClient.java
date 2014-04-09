@@ -9,6 +9,7 @@ import java.util.concurrent.ConcurrentMap;
 import org.apache.commons.lang3.StringUtils;
 
 import redis.clients.jedis.Jedis;
+import redis.clients.jedis.Pipeline;
 import redis.clients.util.SafeEncoder;
 
 import com.github.ddth.redis.IRedisClient;
@@ -144,9 +145,37 @@ public class JedisRedisClient implements IRedisClient {
     /**
      * {@inheritDoc}
      */
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<String> multiGet(String... keys) {
+        Pipeline p = redisClient.pipelined();
+        for (String key : keys) {
+            p.get(key);
+        }
+        List<?> result = p.syncAndReturnAll();
+        return (List<String>) result;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public byte[] getAsBinary(String key) {
         return redisClient.get(SafeEncoder.encode(key));
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<byte[]> multiGetAsBinary(String... keys) {
+        Pipeline p = redisClient.pipelined();
+        for (String key : keys) {
+            p.get(SafeEncoder.encode(key));
+        }
+        List<?> result = p.syncAndReturnAll();
+        return (List<byte[]>) result;
     }
 
     /**
@@ -253,9 +282,49 @@ public class JedisRedisClient implements IRedisClient {
     /**
      * {@inheritDoc}
      */
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<String> hashMultiGet(String[] mapNames, String[] fieldNames) {
+        if (mapNames.length != fieldNames.length) {
+            throw new IllegalArgumentException(
+                    "List of map names and list of field names must have same number of elements!");
+        }
+        Pipeline p = redisClient.pipelined();
+        for (int i = 0; i < mapNames.length; i++) {
+            String mapName = mapNames[i];
+            String fieldName = fieldNames[i];
+            p.hget(mapName, fieldName);
+        }
+        List<?> result = p.syncAndReturnAll();
+        return (List<String>) result;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public byte[] hashGetAsBinary(String mapName, String fieldName) {
         return redisClient.hget(SafeEncoder.encode(mapName), SafeEncoder.encode(fieldName));
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<byte[]> hashMultiGetAsBinary(String[] mapNames, String[] fieldNames) {
+        if (mapNames.length != fieldNames.length) {
+            throw new IllegalArgumentException(
+                    "List of map names and list of field names must have same number of elements!");
+        }
+        Pipeline p = redisClient.pipelined();
+        for (int i = 0; i < mapNames.length; i++) {
+            byte[] mapName = SafeEncoder.encode(mapNames[i]);
+            byte[] fieldName = SafeEncoder.encode(fieldNames[i]);
+            p.hget(mapName, fieldName);
+        }
+        List<?> result = p.syncAndReturnAll();
+        return (List<byte[]>) result;
     }
 
     /**

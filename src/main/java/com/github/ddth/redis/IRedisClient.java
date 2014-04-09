@@ -69,12 +69,30 @@ public interface IRedisClient {
     public String get(String key);
 
     /**
+     * Gets multiple values from Redis server via pipeline.
+     * 
+     * @param keys
+     * @return
+     * @since 0.3.1
+     */
+    public List<String> multiGet(String... keys);
+
+    /**
      * Gets a value from Redis server.
      * 
      * @param key
      * @return
      */
     public byte[] getAsBinary(String key);
+
+    /**
+     * Gets multiple values from Redis server via pipeline.
+     * 
+     * @param keys
+     * @return
+     * @since 0.3.1
+     */
+    public List<byte[]> multiGetAsBinary(String... keys);
 
     /**
      * Atomically sets key to value and returns the old value stored at key.
@@ -186,6 +204,16 @@ public interface IRedisClient {
     public String hashGet(String mapName, String fieldName);
 
     /**
+     * Gets multiple field values from multiples Redis hashes via pipeline.
+     * 
+     * @param mapNames
+     * @param fieldNames
+     * @return
+     * @since 0.3.1
+     */
+    public List<String> hashMultiGet(String[] mapNames, String[] fieldNames);
+
+    /**
      * Gets a field value from a Redis hash.
      * 
      * @param mapName
@@ -193,6 +221,16 @@ public interface IRedisClient {
      * @return
      */
     public byte[] hashGetAsBinary(String mapName, String fieldName);
+
+    /**
+     * Gets multiple field values from multiples Redis hashes via pipeline.
+     * 
+     * @param mapNames
+     * @param fieldNames
+     * @return
+     * @since 0.3.1
+     */
+    public List<byte[]> hashMultiGetAsBinary(String[] mapNames, String[] fieldNames);
 
     /**
      * Gets multiple field values fron a Redis hash.

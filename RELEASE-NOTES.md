@@ -1,6 +1,12 @@
 ddth-redis release notes
 ========================
 
+0.3.1 - 2014-04-09
+------------------
+- New pipeline APIs:
+  - `multiGet(...)` and `hashMultiGet(...)`
+
+
 0.3.0 - 2014-04-08
 ------------------
 - `PoolConfig`: add configurations for `testOnBorrow`, `testOnCreate` and `testWhileIdle`.
