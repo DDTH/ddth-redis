@@ -1,6 +1,11 @@
 ddth-redis release notes
 ========================
 
+0.4.0 - 2014-11-25
+------------------
+- Migrate parent POM to `com.github.ddth:ddth-parent:2`
+
+
 0.3.1 - 2014-04-09
 ------------------
 - New pipeline APIs:

@@ -43,6 +43,15 @@ public interface IRedisClient {
     public String ping();
 
     /**
+     * Gets current TTL value of a key in seconds.
+     * 
+     * @param key
+     * @return
+     * @since 0.4.0
+     */
+    public long ttl(String key);
+
+    /**
      * Updates expiry time of a Redis key.
      * 
      * @param key

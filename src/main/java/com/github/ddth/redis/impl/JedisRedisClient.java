@@ -118,6 +118,14 @@ public class JedisRedisClient implements IRedisClient {
      * {@inheritDoc}
      */
     @Override
+    public long ttl(String key) {
+        return redisClient.ttl(key);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public void expire(String key, int ttlSeconds) {
         if (ttlSeconds > 0) {
             redisClient.expire(key, ttlSeconds);
